@@ -6,12 +6,13 @@ import re
 import sys
 #import urllib
 
-base_url = "http://www.ajjimusic.com"
+base_url = "http://114.143.5.121"
 mp3List = []
 #start_dir = sys.argv[1]
 #filename = sys.argv[2]
-start_dir = '/songs/Hindi%20Movie%20Songs/'
-filename = "hindi.txt"
+start_dir = '/D8mp3/Hindi/Bollywood/'
+filename = "hindiYear.txt"
+server = 'apache'
 #relative_url = '/load'
 #
 #for y in level1_url :
@@ -59,11 +60,18 @@ def fetch_urls(base_url , relative_url ) :
     links =  soup.findAll('a')
     level1_url = []
     #count = 0
-    for x in  links :
-        match = re.search(regex, x['href'])
-        if match :
-            level1_url.append(x['href'])
-#                print str(x['href'])
+    if (server == 'apache'):
+        for x in  links :
+            match = re.search(regex, relative_url+x['href'])
+            if match :
+                level1_url.append(relative_url+x['href'])
+    #                print str(x['href'])
+    elif(server == 'LightSpeed'):
+         for x in  links :
+            match = re.search(regex, x['href'])
+            if match :
+                level1_url.append(x['href'])
+    #                print str(x['href'])
 
     return level1_url
         
@@ -92,7 +100,7 @@ def traverse_folder(foldername):
             if regexMatch(mp3Regex,q):
                 try:
                     f.write(q+'\n')
-#                    print q;
+                    print q;
                 except:
                     print "Not Ascii"
                 
