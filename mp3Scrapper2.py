@@ -6,10 +6,12 @@ import re
 import sys
 #import urllib
 
-base_url = "http://mp3.tamilmp3songs.mobi"
+base_url = "http://www.ajjimusic.com"
 mp3List = []
-start_dir = sys.argv[1]
-filename = sys.argv[2]
+#start_dir = sys.argv[1]
+#filename = sys.argv[2]
+start_dir = '/songs/Hindi%20Movie%20Songs/'
+filename = "hindi.txt"
 #relative_url = '/load'
 #
 #for y in level1_url :
@@ -32,7 +34,15 @@ def fetch_urls(base_url , relative_url ) :
   
 #    req = '';
 #    relative_url = urllib.urlencode(relative_url)
-    regex = relative_url.replace('%20',' ') + '\w+'
+    regex = relative_url.replace('%20',' ') 
+#    regex = regex.replace('[','\[')
+#    regex = regex.replace(']','\]')
+    regexSpecial = '[]^$.|?*+(){}'
+    for specialChar in regexSpecial :
+        p = '\\' + specialChar
+        regex =regex.replace(specialChar , p)
+#        print y
+    regex = regex + '\w+'
     relative_url = relative_url.replace(' ','%20')
     full_url = base_url + relative_url
 #    print full_url
@@ -69,7 +79,7 @@ mp3Regex = r'.mp3\Z'
 
     
 def traverse_folder(foldername):
-    print foldername
+#    print foldername
     urls2 = ''
     try:
         urls2 = fetch_urls(base_url, foldername)
@@ -82,6 +92,7 @@ def traverse_folder(foldername):
             if regexMatch(mp3Regex,q):
                 try:
                     f.write(q+'\n')
+#                    print q;
                 except:
                     print "Not Ascii"
                 
