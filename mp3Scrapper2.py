@@ -42,6 +42,7 @@ def fetch_urls(base_url , relative_url ) :
     for specialChar in regexSpecial :
         p = '\\' + specialChar
         regex =regex.replace(specialChar , p)
+        regex =regex.replace(' ' , '%20')
 #        print y
     regex = regex + '\w+'
     relative_url = relative_url.replace(' ','%20')
