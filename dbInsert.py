@@ -17,7 +17,7 @@ def insertIntoDB(songName , MovieName , url):
 
 
 base_url = "http://mp3.tamilmp3songs.mobi"
-con = MySQLdb.Connect('localhost', 'root','', 'psgkriya_rathimusic')
+con = MySQLdb.Connect('localhost', 'xxxxxx','', 'xxxxxx')
 cursor = con.cursor();  
 filename = '1.mp3.txt'
 f = open(filename, "r")
